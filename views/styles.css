@@ -1,0 +1,271 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #1a1a1a;
+}
+
+.container {
+    display: flex;
+    padding: 20px;
+    gap: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.settings-panel, .preview-panel {
+    flex: 1;
+    padding: 25px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.preview-panel {
+    flex: 2;
+}
+
+h2 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4a5568;
+    font-weight: 500;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.2s ease;
+}
+
+input:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+input[type="file"] {
+    border: none;
+    padding: 0;
+}
+
+button {
+    padding: 12px 24px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:disabled {
+    background-color: #94a3b8;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+button#saveBtn {
+    background-color: #27ae60;
+}
+
+button#saveBtn:hover {
+    background-color: #219a52;
+}
+
+.preview-container {
+    position: relative;
+    margin: 20px 0;
+    border: 2px solid #e2e8f0;
+    background-color: white;
+    border-radius: 8px;
+    overflow: visible;
+}
+
+canvas {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+.name-marker {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #ff3b30;
+    border-radius: 50%;
+    cursor: grab;
+    user-select: none;
+    display: none;
+    z-index: 1000;
+    box-shadow: 0 0 0 2px white;
+}
+
+.name-marker::before,
+.name-marker::after {
+    content: '';
+    position: absolute;
+    background-color: #ff3b30;
+}
+
+.name-marker::before {
+    width: 2px;
+    height: 24px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.name-marker::after {
+    width: 24px;
+    height: 2px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.name-marker-label {
+    position: absolute;
+    background-color: #2c3e50;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    white-space: nowrap;
+    bottom: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    z-index: 1001;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.name-marker-label::after {
+    content: '';
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 6px solid #2c3e50;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateX(-50%) translateY(0px);
+    }
+    50% {
+        transform: translateX(-50%) translateY(-3px);
+    }
+}
+
+.name-marker.dragging {
+    cursor: grabbing;
+    background-color: #686de0;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9),
+                0 0 0 6px rgba(104, 109, 224, 0.3),
+                0 6px 16px rgba(104, 109, 224, 0.4);
+    transform: scale(1.1);
+}
+
+.name-marker.dragging::before,
+.name-marker.dragging::after {
+    background-color: #686de0;
+}
+
+@keyframes gentle-pulse {
+    0% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9),
+                    0 0 0 6px rgba(72, 52, 212, 0.3),
+                    0 4px 12px rgba(72, 52, 212, 0.3);
+    }
+    50% { 
+        transform: scale(1.05);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9),
+                    0 0 0 8px rgba(72, 52, 212, 0.2),
+                    0 4px 16px rgba(72, 52, 212, 0.4);
+    }
+    100% { 
+        transform: scale(1);
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9),
+                    0 0 0 6px rgba(72, 52, 212, 0.3),
+                    0 4px 12px rgba(72, 52, 212, 0.3);
+    }
+}
+
+.name-marker {
+    animation: gentle-pulse 2s infinite ease-in-out;
+}
+
+.name-marker:hover {
+    transform: scale(1.05);
+}
+
+.name-marker.dragging {
+    animation: none;
+}
+
+/* Add this to style the coordinates display */
+.coordinates {
+    margin: 15px 0;
+    padding: 15px 20px;
+    background: linear-gradient(145deg, #f8fafc, #ffffff);
+    border-radius: 12px;
+    border: 1px solid rgba(72, 52, 212, 0.1);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.coordinates p {
+    color: #4a5568;
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.coordinates span {
+    color: #4834d4;
+    font-weight: 600;
+    background-color: rgba(72, 52, 212, 0.1);
+    padding: 4px 8px;
+    border-radius: 6px;
+    min-width: 40px;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+    }
+    
+    .settings-panel, .preview-panel {
+        flex: none;
+    }
+} 

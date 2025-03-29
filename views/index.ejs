@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="settings-panel">
+            <h2>Certificate Settings</h2>
+            <form id="certificateForm">
+                <div class="form-group">
+                    <label for="sheetId">Sheet ID:</label>
+                    <input type="text" id="sheetId" required>
+                </div>
+                <div class="form-group">
+                    <label for="sheetName">Sheet Name:</label>
+                    <input type="text" id="sheetName" required>
+                </div>
+                <div class="form-group">
+                    <label for="mailSubject">Mail Subject:</label>
+                    <input type="text" id="mailSubject" required>
+                </div>
+                <div class="form-group">
+                    <label for="mailBody">Mail Body:</label>
+                    <input type="text" id="mailBody" required>
+                </div>
+                <div class="form-group">
+                    <label for="templateFile">Certificate Template:</label>
+                    <input type="file" id="templateFile" name="cert_template" required>
+                </div>
+                <button type="button" id="previewBtn">Preview</button>
+            </form>
+        </div>
+
+        <div class="preview-panel">
+            <h2>Preview & Coordinate Setup</h2>
+            <div class="preview-container">
+                <canvas id="previewCanvas"></canvas>
+                <div id="nameMarker" class="name-marker" draggable="true">Drag to set name position</div>
+            </div>
+            <div class="coordinates">
+                <p>Name Position - X: <span id="xCoord">0</span> Y: <span id="yCoord">0</span></p>
+            </div>
+            <button type="button" id="saveBtn">Save Settings</button>
+            <p id="statusMessage" style="margin-top: 10px; color: #4a5568;"></p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
